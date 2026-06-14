@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex,nofollow">
+<title>Мой VPN — подписка</title>
+<style>
+  :root{
+    --bg:#0e1116; --card:#171b22; --card2:#1f242d; --line:#2a313c;
+    --text:#e8edf4; --muted:#9aa6b6; --accent:#4f8cff; --accent2:#3bd6a4;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    background:radial-gradient(1200px 600px at 50% -10%,#1a2333 0%,var(--bg) 55%);color:var(--text);
+    min-height:100vh;display:flex;align-items:flex-start;justify-content:center;padding:32px 16px}
+  .wrap{width:100%;max-width:560px}
+  .head{text-align:center;margin-bottom:22px}
+  .logo{width:56px;height:56px;border-radius:16px;background:linear-gradient(135deg,var(--accent),var(--accent2));
+    display:inline-flex;align-items:center;justify-content:center;font-size:28px;margin-bottom:12px}
+  h1{font-size:22px;margin:0 0 4px}
+  .sub{color:var(--muted);font-size:14px;margin:0}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:20px;margin-bottom:16px}
+  .label{font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin:0 0 8px}
+  .cta{display:block;text-align:center;text-decoration:none;background:linear-gradient(135deg,var(--accent),var(--accent2));
+    color:#fff;font-size:17px;font-weight:700;padding:16px;border-radius:14px}
+  .cta:active{filter:brightness(.95)}
+  .hint{text-align:center;color:var(--muted);font-size:12px;margin:10px 0 0}
+  .urlrow{display:flex;gap:8px}
+  input.url{flex:1;background:var(--card2);border:1px solid var(--line);color:var(--text);
+    border-radius:10px;padding:11px 12px;font-size:13px;font-family:ui-monospace,Menlo,Consolas,monospace;overflow:hidden}
+  button{cursor:pointer;border:none;border-radius:10px;font-size:14px;font-weight:600;padding:11px 16px;transition:.15s}
+  .btn-primary{background:var(--accent);color:#fff}
+  .btn-primary:hover{filter:brightness(1.08)}
+  .btn-ghost{background:var(--card2);color:var(--text);border:1px solid var(--line);width:100%;margin-top:10px}
+  .btn-ghost:hover{border-color:var(--accent)}
+  #qr{display:none;justify-content:center;padding:18px;background:#fff;border-radius:14px;margin-top:14px}
+  .steps{margin:0;padding-left:20px;color:var(--muted);font-size:14px;line-height:1.7}
+  .steps b{color:var(--text)}
+  .pills{display:flex;flex-wrap:wrap;gap:8px}
+  .pill{background:var(--card2);border:1px solid var(--line);border-radius:999px;padding:6px 12px;font-size:13px}
+  .pill span{color:var(--muted);margin-left:4px}
+  .count{font-weight:700;color:var(--accent2)}
+  .foot{text-align:center;color:var(--muted);font-size:12px;margin-top:18px;line-height:1.6}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="head">
+    <div class="logo">🛡️</div>
+    <h1>Мой VPN</h1>
+    <p class="sub"><span class="count">41</span> сервер · обновляется автоматически</p>
+  </div>
+
+  <div class="card">
+    <a id="addBtn" class="cta" href="#">➕ Добавить в Happ</a>
+    <p class="hint">Откроется Happ и подписка добавится автоматически. Нужен установленный Happ.</p>
+  </div>
+
+  <div class="card">
+    <p class="label">Другие клиенты (Hiddify, v2rayN, Streisand)</p>
+    <div class="urlrow">
+      <input id="url" class="url" readonly value="">
+      <button id="copy" class="btn-primary">Копировать</button>
+    </div>
+    <button id="qrbtn" class="btn-ghost">Показать QR-код</button>
+    <div id="qr"></div>
+  </div>
+
+  <div class="card">
+    <p class="label">Что внутри</p>
+    <div class="pills">
+      <div class="pill">🇫🇮 Finland<span>×4</span></div>
+      <div class="pill">🇸🇪 Sweden<span>×3</span></div>
+      <div class="pill">🇳🇱 Netherlands<span>×6</span></div>
+      <div class="pill">🇩🇪 Germany<span>×7</span></div>
+      <div class="pill">🇵🇱 Poland<span>×1</span></div>
+      <div class="pill">🇦🇹 Austria<span>×1</span></div>
+      <div class="pill">🇱🇻 Latvia<span>×1</span></div>
+      <div class="pill">🇯🇵 Japan<span>×1</span></div>
+      <div class="pill">🛡 Белые списки<span>×6</span></div>
+      <div class="pill">🧱 Обход<span>×2</span></div>
+      <div class="pill">📺 Стриминг<span>×2</span></div>
+      <div class="pill">🧲 Torrent<span>×1</span></div>
+      <div class="pill">🌍 Прочие<span>×6</span></div>
+    </div>
+  </div>
+
+  <p class="foot">Личная подписка. Не делись ссылкой публично.</p>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jsencrypt/3.3.2/jsencrypt.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script>
+  // адрес файла подписки = ./sub рядом с этой страницей
+  var subUrl = new URL('sub', location.href).href;
+  document.getElementById('url').value = subUrl;
+
+  // Официальный RSA-ключ Happ (crypt4) для генерации happ://-ссылки
+  var HAPP_PUBKEY =
+"-----BEGIN PUBLIC KEY-----\n"+
+"MIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEAlBetA0wjbaj+h7oJ/d/h\n"+
+"pNrXvAcuhOdFGEFcfCxSWyLzWk4SAQ05gtaEGZyetTax2uqagi9HT6lapUSUe2S8\n"+
+"nMLJf5K+LEs9TYrhhBdx/B0BGahA+lPJa7nUwp7WfUmSF4hir+xka5ApHjzkAQn6\n"+
+"cdG6FKtSPgq1rYRPd1jRf2maEHwiP/e/jqdXLPP0SFBjWTMt/joUDgE7v/IGGB0L\n"+
+"Q7mGPAlgmxwUHVqP4bJnZ//5sNLxWMjtYHOYjaV+lixNSfhFM3MdBndjpkmgSfmg\n"+
+"D5uYQYDL29TDk6Eu+xetUEqry8ySPjUbNWdDXCglQWMxDGjaqYXMWgxBA1UKjUBW\n"+
+"wbgr5yKTJ7mTqhlYEC9D5V/LOnKd6pTSvaMxkHXwk8hBWvUNWAxzAf5JZ7EVE3jt\n"+
+"0j682+/hnmL/hymUE44yMG1gCcWvSpB3BTlKoMnl4yrTakmdkbASeFRkN3iMRewa\n"+
+"IenvMhzJh1fq7xwX94otdd5eLB2vRFavrnhOcN2JJAkKTnx9dwQwFpGEkg+8U613\n"+
+"+Tfm/f82l56fFeoFN98dD2mUFLFZoeJ5CG81ZeXrH83niI0joX7rtoAZIPWzq3Y1\n"+
+"Zb/Zq+kK2hSIhphY172Uvs8X2Qp2ac9UoTPM71tURsA9IvPNvUwSIo/aKlX5KE3I\n"+
+"VE0tje7twWXL5Gb1sfcXRzsCAwEAAQ==\n"+
+"-----END PUBLIC KEY-----";
+
+  var addBtn = document.getElementById('addBtn');
+  try {
+    var enc = new JSEncrypt();
+    enc.setPublicKey(HAPP_PUBKEY);
+    var encrypted = enc.encrypt(subUrl);
+    if (encrypted) {
+      addBtn.href = 'happ://crypt4/' + encrypted;
+    } else {
+      addBtn.href = subUrl; // запасной вариант
+    }
+  } catch(e) {
+    addBtn.href = subUrl;
+  }
+
+  document.getElementById('copy').addEventListener('click', function(){
+    var btn = this;
+    navigator.clipboard.writeText(subUrl).then(function(){
+      btn.textContent = 'Скопировано ✓'; btn.style.background = 'var(--accent2)';
+      setTimeout(function(){ btn.textContent='Копировать'; btn.style.background='var(--accent)'; }, 1800);
+    }).catch(function(){
+      var i=document.getElementById('url'); i.select(); document.execCommand('copy');
+      btn.textContent = 'Скопировано ✓'; setTimeout(function(){ btn.textContent='Копировать'; }, 1800);
+    });
+  });
+
+  var qrBuilt = false;
+  document.getElementById('qrbtn').addEventListener('click', function(){
+    var box = document.getElementById('qr');
+    if(!qrBuilt){ new QRCode(box, {text: subUrl, width:220, height:220, correctLevel: QRCode.CorrectLevel.M}); qrBuilt = true; }
+    var shown = box.style.display === 'flex';
+    box.style.display = shown ? 'none' : 'flex';
+    this.textContent = shown ? 'Показать QR-код' : 'Скрыть QR-код';
+  });
+</script>
+</body>
+</html>
